@@ -1,0 +1,51 @@
+plugins {
+    id "java"
+    id "idea"
+    id "net.serenity-bdd.serenity-gradle-plugin" version "4.1.14"
+}
+
+group = 'co.dlacademy'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    serenityCoreVersion = '4.1.14'
+    junitVersion = '5.10.0'
+    assertJVersion = '3.26.0'
+}
+
+dependencies {
+    //SERENITY
+    testImplementation  "net.serenity-bdd:serenity-core:${serenityCoreVersion}"
+    testImplementation  "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}"
+    testImplementation  "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
+    //SCREENPLAY
+    testImplementation  "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"
+    testImplementation  "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
+    testImplementation  "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
+    //JUNIT
+    //testImplementation  "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    //testImplementation  "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+    //testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'junit:junit:4.13.2'
+    //ASSERT
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation "org.assertj:assertj-core:${assertJVersion}"
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+    //ADICIONAL
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
+    testImplementation('org.slf4j:slf4j-simple:2.0.7')
+}
+
+test {
+    systemProperties System.getProperties()
+}
+
+test.finalizedBy(aggregate)
+
+gradle.startParameter.continueOnFailure = true
