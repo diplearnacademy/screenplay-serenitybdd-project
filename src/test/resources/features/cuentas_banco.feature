@@ -3,13 +3,16 @@ Feature: Aperturar Cuentas de Ahorro
   Quiero aperturar una cuenta de ahorros
   Para hacer envio de dinero
 
-
-  Scenario Outline: Abrir cuenta de ahorros para usuarios no registrados
+  Background: Abrir la pagina del banco
     Given que Juan esta en la pagina del banco
+
+  Scenario: Abrir cuenta de ahorros para usuarios no registrados
     And realiza el registro como nuevo usuario
-    When abre una cuenta de <tipoCuenta>
+    When abre una cuenta de SAVINGS
     Then el deberia de ver su cuenta creada de manera exitosa
-    Examples:
-      | tipoCuenta |
-      #| CHECKING   |
-      | SAVINGS    |
+
+
+  Scenario: Abrir cuenta de cheques para usuarios no registrados
+    And realiza el registro como nuevo usuario
+    When abre una cuenta de CHECKING
+    Then el deberia de ver su cuenta creada de manera exitosa

@@ -1,36 +1,22 @@
 package co.dlacademy.stepdefinitions;
 
 import co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste;
-import co.dlacademy.interactions.Abrir;
-import co.dlacademy.interactions.Maximizar;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
 import co.dlacademy.tasks.Registrar;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Open;
-import net.serenitybdd.screenplay.actors.OnStage;
-import net.serenitybdd.screenplay.actors.OnlineCast;
 
 import static co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste.MENSAJE_ERROR_CREACION_CUENTA_AHORROS;
 import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_DETALLES_NUEVA_CUENTA;
 import static co.dlacademy.userinterfaces.HomePage.LINK_REGISTRO;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static net.serenitybdd.screenplay.actors.OnStage.*;
+import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
+import static net.serenitybdd.screenplay.actors.OnStage.withCurrentActor;
 
 public class CuentasBancoStepDefinition {
-
-    @Given("que {word} esta en la pagina del banco")
-    public void queElUsuarioEstaEnLaPaginaDelBanco(String nombre) {
-        OnStage.setTheStage(new OnlineCast());
-        theActorCalled(nombre).wasAbleTo(
-                Abrir.elNavegador(),
-                Maximizar.elNavegador()
-        );
-    }
 
     @And("realiza el registro como nuevo usuario")
     public void realizaElRegistroComoNuevoUsuario()  {
