@@ -1,6 +1,7 @@
 package co.dlacademy.stepdefinitions;
 
 import co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste;
+import co.dlacademy.interactions.Abrir;
 import co.dlacademy.interactions.Maximizar;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
@@ -26,7 +27,7 @@ public class CuentasBancoStepDefinition {
     public void queElUsuarioEstaEnLaPaginaDelBanco(String nombre) {
         OnStage.setTheStage(new OnlineCast());
         theActorCalled(nombre).wasAbleTo(
-                Open.url("https://parabank.parasoft.com/"),
+                Abrir.elNavegador(),
                 Maximizar.elNavegador()
         );
     }
