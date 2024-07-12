@@ -19,9 +19,9 @@ public class Guardar implements Interaction {
 
     @Override
     public <T extends Actor> void performAs(T actor) {
-        String valorCLAVE = valor.resolveFor(actor).getText();
-        actor.remember(clave,valor.resolveFor(actor).getText());
-        System.out.println(valorCLAVE);
+        String valorClave = valor.resolveFor(actor).getText();
+        actor.remember(clave,valorClave);
+        System.out.println(valorClave);
     }
 
     public static Performable informacionParaDespues(String clave, Target valor){

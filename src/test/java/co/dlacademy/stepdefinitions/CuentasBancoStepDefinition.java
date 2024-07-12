@@ -12,8 +12,13 @@ import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Open;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
+import net.serenitybdd.screenplay.ensure.Ensure;
+
+import java.util.List;
 
 import static co.dlacademy.tasks.Registrar.unUsuarioNuevo;
+import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_DETALLES_NUEVA_CUENTA;
+import static co.dlacademy.userinterfaces.DetallesTodasCuentasPage.LISTA_CUENTAS_USUARIO;
 import static co.dlacademy.userinterfaces.HomePage.LINK_REGISTRO;
 import static net.serenitybdd.screenplay.actors.OnStage.*;
 
@@ -40,13 +45,17 @@ public class CuentasBancoStepDefinition {
     @When("abre una cuenta de {word}")
     public void abreUnaCuenta(String tipoCuenta) {
         theActorInTheSpotlight().attemptsTo(
-                CrearNuevaCuenta.deAhorros(tipoCuenta)
+                CrearNuevaCuenta.deAhorros(tipoCuenta),
+                Click.on(LINK_DETALLES_NUEVA_CUENTA)
         );
     }
 
     @Then("el deberia de ver su cuenta creada de manera exitosa")
     public void elDeberiaDeVerSuCuentaCreadaDeManeraExitosa() {
-
+        String cuentaAhorrosCreada = theActorInTheSpotlight().recall("cuentaAhorros");
+        List<String> cuentasAhorroUsuario = LISTA_CUENTAS_USUARIO.resolveAllFor(theActorInTheSpotlight()).texts();
+        theActorInTheSpotlight().attemptsTo(
+                Ensure.that(cuentaAhorrosCreada).isIn(cuentasAhorroUsuario)
+        );
     }
-
 }

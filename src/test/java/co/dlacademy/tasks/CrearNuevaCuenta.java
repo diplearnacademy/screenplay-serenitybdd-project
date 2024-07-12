@@ -6,12 +6,16 @@ import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.SelectFromOptions;
+import net.serenitybdd.screenplay.waits.WaitUntil;
+
+import java.time.Duration;
 
 import static co.dlacademy.userinterfaces.AbrirCuentaNuevaPage.BUTTON_ABRIR_CUENTA_NUEVA;
 import static co.dlacademy.userinterfaces.AbrirCuentaNuevaPage.SELECT_TIPO_CUENTA;
 import static co.dlacademy.userinterfaces.DetallesCuentaAbiertaPage.LINK_NUEVA_CUENTA_ABIERTO;
 import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_ABRIR_NUEVA_CUENTA;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isPresent;
 
 public class CrearNuevaCuenta implements Task {
 
@@ -27,6 +31,7 @@ public class CrearNuevaCuenta implements Task {
                 Click.on(LINK_ABRIR_NUEVA_CUENTA),
                 SelectFromOptions.byVisibleText(tipoCuenta).from((SELECT_TIPO_CUENTA)),
                 Click.on(BUTTON_ABRIR_CUENTA_NUEVA),
+                WaitUntil.the(LINK_NUEVA_CUENTA_ABIERTO, isPresent()).forNoMoreThan(Duration.ofSeconds(5)),
                 Guardar.informacionParaDespues("cuentaAhorros", LINK_NUEVA_CUENTA_ABIERTO)
         );
     }
