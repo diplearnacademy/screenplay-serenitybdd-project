@@ -4,12 +4,14 @@ import co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
 import co.dlacademy.tasks.Registrar;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actions.Click;
 
 import static co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste.MENSAJE_ERROR_CREACION_CUENTA_AHORROS;
+import static co.dlacademy.models.builders.UsuarioBancoBuilder.delBancoParabank;
 import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_DETALLES_NUEVA_CUENTA;
 import static co.dlacademy.userinterfaces.HomePage.LINK_REGISTRO;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
@@ -19,11 +21,12 @@ import static net.serenitybdd.screenplay.actors.OnStage.withCurrentActor;
 public class CuentasBancoStepDefinition {
 
     @And("realiza el registro como nuevo usuario")
-    public void realizaElRegistroComoNuevoUsuario()  {
+    public void realizaElRegistroComoNuevoUsuario(DataTable credenciales)  {
         withCurrentActor();
         theActorInTheSpotlight().attemptsTo(
                 Click.on(LINK_REGISTRO),
-                Registrar.unUsuarioNuevo()
+                Registrar.unUsuarioNuevo(
+                        delBancoParabank().con(credenciales).llamado().build())
         );
     }
 

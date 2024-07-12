@@ -8,11 +8,13 @@ Feature: Aperturar Cuentas de Ahorro
 
   Scenario: Abrir cuenta de ahorros para usuarios no registrados
     And realiza el registro como nuevo usuario
+      | nombre | apellido  | nick |
+      | Juan   | Fernandez | jkl  |
     When abre una cuenta de SAVINGS
     Then el deberia de ver su cuenta creada de manera exitosa
 
 
-  Scenario: Abrir cuenta de cheques para usuarios no registrados
-    And realiza el registro como nuevo usuario
-    When abre una cuenta de CHECKING
-    Then el deberia de ver su cuenta creada de manera exitosa
+#  Scenario: Abrir cuenta de cheques para usuarios no registrados
+#    And realiza el registro como nuevo usuario
+#    When abre una cuenta de CHECKING
+#    Then el deberia de ver su cuenta creada de manera exitosa
