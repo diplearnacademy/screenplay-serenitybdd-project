@@ -31,7 +31,7 @@ public class CrearNuevaCuenta implements Task {
                 Click.on(LINK_ABRIR_NUEVA_CUENTA),
                 SelectFromOptions.byVisibleText(tipoCuenta).from((SELECT_TIPO_CUENTA)),
                 Click.on(BUTTON_ABRIR_CUENTA_NUEVA),
-                WaitUntil.the(LINK_NUEVA_CUENTA_ABIERTO, isPresent()).forNoMoreThan(Duration.ofSeconds(5)),
+                WaitUntil.the(LINK_NUEVA_CUENTA_ABIERTO, isPresent()).forNoMoreThan(Duration.ofSeconds(8)),
                 Guardar.informacionParaDespues("cuentaAhorros", LINK_NUEVA_CUENTA_ABIERTO)
         );
     }
