@@ -23,15 +23,15 @@ dependencies {
     testImplementation  "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}"
     testImplementation  "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
     //SCREENPLAY
-    testImplementation  "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
+    testImplementation  "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"//codigo core de screenplay
+    testImplementation  "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}" //codigo core de screenplay
+    testImplementation  "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}" //libreria con aserciones
     //JUNIT
     //testImplementation  "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
     //testImplementation  "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")//permite ejeutar con junit 5 pruebas creadas con junit 4 en la maquina virtual de java
     //testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.jupiter:junit-jupiter' //engloba las comentadas
     testImplementation 'junit:junit:4.13.2'
     //ASSERT
     testImplementation 'org.hamcrest:hamcrest:2.2'
