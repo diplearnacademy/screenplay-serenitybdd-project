@@ -25,7 +25,7 @@ public class Registrar implements Task {
                 SendKeys.of("00500").into(INPUT_POSTAL), //pERMITE ENVIAR POR EJEMPLO UN ENTER
                 SendKeys.of("3004405642").into(INPUT_TELEFONO),
                 SendKeys.of("abc").into(INPUT_SSN),
-                SendKeys.of("elpepe5").into(INPUT_USERNAME),
+                SendKeys.of("elpepe9").into(INPUT_USERNAME),
                 SendKeys.of("00500").into(INPUT_CLAVE),
                 SendKeys.of("00500").into(INPUT_CLAVE_DOS),
                 Click.on(BUTTON_REGISTRAR)
