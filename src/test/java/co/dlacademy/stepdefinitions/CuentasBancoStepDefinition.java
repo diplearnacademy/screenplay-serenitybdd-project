@@ -4,6 +4,7 @@ package co.dlacademy.stepdefinitions;
 import co.dlacademy.tasks.CrearNuevaCuenta;
 import co.dlacademy.tasks.Registrar;*/
 import co.dlacademy.exceptions.CuentaDeAhorrosCreadaNoExiste;
+import co.dlacademy.interaction.Abrir;
 import co.dlacademy.interaction.Maximizar;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
@@ -34,11 +35,11 @@ public class CuentasBancoStepDefinition {
     @Given("que {word} esta en la pagina del banco")
     public void queElUsuarioEstaEnLaPaginaDelBanco(String nombre) {
         //preparo el escenario para el actor
-        OnStage.setTheStage(new OnlineCast());
         //wasAbleto se usa para interaccion
         //attemsto se una para tareas
+        OnStage.setTheStage(new OnlineCast());
         theActorCalled(nombre).wasAbleTo(
-                Open.url("https://parabank.parasoft.com/"),
+                Abrir.elNavegador(),
                 Maximizar.elNavegador()
         );
     }
