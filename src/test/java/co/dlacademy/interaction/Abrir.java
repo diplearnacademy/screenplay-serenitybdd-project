@@ -3,10 +3,12 @@ package co.dlacademy.interaction;
 import co.dlacademy.userinterfaces.HomePage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
+import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.actions.Open;
 import org.fluentlenium.core.annotation.Page;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
+
 
 public class Abrir implements Interaction {
     @Page
@@ -19,7 +21,7 @@ public class Abrir implements Interaction {
         );
     }
 
-    public static Abrir elNavegador(){
+    public static Performable elNavegador() {
         return instrumented(Abrir.class);
     }
 }
