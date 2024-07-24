@@ -13,11 +13,11 @@ import static net.serenitybdd.screenplay.actors.OnStage.theActorCalled;
 public class Hooks {
 
     @Before
-    public void preparacionEscenario(){
+    public void preparacionEscenario() {
         OnStage.setTheStage(new OnlineCast());
     }
 
-    @Given("que {word} esta en la pagina del banco")
+    @Given("que {word} se encuentra en la pagina")
     public void queElUsuarioEstaEnLaPaginaDelBanco(String nombre) {
         theActorCalled(nombre).wasAbleTo(
                 Abrir.elNavegador(),
@@ -26,7 +26,7 @@ public class Hooks {
     }
 
     @After
-    public void finEscenario(){
-        System.out.println("Fin del Escenario");
+    public void finEscenario() {
+        //TODO: Aqui el codigo que quieras si necesitas ejecutar algo despues del escenario
     }
 }
