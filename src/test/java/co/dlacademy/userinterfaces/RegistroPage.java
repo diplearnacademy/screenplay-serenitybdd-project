@@ -1,8 +1,12 @@
 package co.dlacademy.userinterfaces;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.screenplay.targets.Target;
 import net.thucydides.core.annotations.findby.By;
+import org.openqa.selenium.support.FindBy;
 
+import static java.sql.DriverManager.getDriver;
+import static java.sql.DriverManager.getDrivers;
 import static net.serenitybdd.screenplay.targets.Target.the;
 
 public class RegistroPage {

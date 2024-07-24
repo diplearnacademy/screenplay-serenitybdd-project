@@ -1,44 +1,32 @@
 package co.dlacademy.tasks;
 
-import co.dlacademy.models.UsuarioBanco;
+import co.dlacademy.models.UsuarioNuevo;
+import io.cucumber.datatable.DataTable;
+import net.serenitybdd.markers.CanBeSilent;
+import net.serenitybdd.markers.IsSilent;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
+import net.serenitybdd.screenplay.SilentTask;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Enter;
-import net.serenitybdd.screenplay.actions.SendKeys;
+import net.serenitybdd.screenplay.actions.*;
 import net.serenitybdd.screenplay.actions.type.Type;
+
+import javax.xml.crypto.Data;
 
 import static co.dlacademy.userinterfaces.RegistroPage.*;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
-public class Registrar implements Task {
+public abstract class Registrar implements Task, CanBeSilent {
 
-    private UsuarioBanco usuarioBanco;
-
-    public Registrar(UsuarioBanco usuarioBanco) {
-        this.usuarioBanco = usuarioBanco;
+    public static Performable unUsuarioNuevo(){
+        return instrumented(RegistrarDatos.class);
     }
 
-    @Override
-    public <T extends Actor> void performAs(T actor) {
-        actor.attemptsTo(
-                Type.theValue(usuarioBanco.getNombre()).into(INPUT_NOMBRE),
-                Type.theValue(usuarioBanco.getApellido()).into(INPUT_APELLIDO),
-                Type.theValue("CLL 77 SUR").into(INPUT_DIRECCION),
-                Type.theValue("Sabaneta").into(INPUT_CIUDAD),
-                Enter.theValue("Antioquia").into(INPUT_ESTADO),
-                SendKeys.of("050505").into(INPUT_POSTAL),
-                SendKeys.of("3223223232").into(INPUT_TELEFONO),
-                SendKeys.of("ABC").into(INPUT_SSN),
-                SendKeys.of(usuarioBanco.getNick()).into(INPUT_USERNAME),
-                SendKeys.of("123456").into(INPUT_CLAVE),
-                SendKeys.of("123456").into(INPUT_CLAVE_DOS),
-                Click.on(BUTTON_REGISTRAR)
-        );
+    public static Performable unUsuarioNuevo(DataTable datos){
+        return instrumented(RegistrarDatable.class, datos);
     }
 
-    public static Performable unUsuarioNuevo(UsuarioBanco usuarioBanco){
-        return instrumented(Registrar.class, usuarioBanco);
+    public static Performable unUsuarioNuevo(UsuarioNuevo datos){
+        return instrumented(RegistrarModelo.class, datos);
     }
 }
