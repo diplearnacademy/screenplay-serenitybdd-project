@@ -16,6 +16,7 @@ import static co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste.MENSAJE_ERROR_
 import static co.dlacademy.models.builders.UsuarioNuevoBuilder.delBanco;
 import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_DETALLES_NUEVA_CUENTA;
 import static co.dlacademy.userinterfaces.HomePage.LINK_REGISTRO;
+import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 import static net.serenitybdd.screenplay.actors.OnStage.withCurrentActor;
@@ -24,8 +25,7 @@ public class CuentasBancoStepDefinition {
 
     @And("realiza el registro como nuevo usuario")
     public void realizaElRegistroComoNuevoUsuario(DataTable credenciales)  {
-        withCurrentActor();
-        theActorInTheSpotlight().attemptsTo(
+        givenThat(Actores.JUAN).attemptsTo(
                 Click.on(LINK_REGISTRO),
                 Registrar.unUsuarioNuevo(credenciales)
         );
@@ -34,27 +34,21 @@ public class CuentasBancoStepDefinition {
 
     @And("realiza el registro para un nuevo usuario")
     public void realizaElRegistroParaNuevoUsuario()  {
-        withCurrentActor();
-        theActorInTheSpotlight().attemptsTo(
+        givenThat(Actores.JUAN).attemptsTo(
                 Click.on(LINK_REGISTRO),
-                //Registrar.unUsuarioNuevo(delBanco().con(credenciales).build())
                 Registrar.unUsuarioNuevo(
                         delBanco()
                                 .conNombre()
                                 .apellido()
                                 .yNicknameDefinidos()
                                 .build())
-               // Registrar.unUsuarioNuevo(delBanco().conNombre(credenciales).conNick(credenciales).build()),
-                //Registrar.unUsuarioNuevo(delBanco().conNick(credenciales).build())
-
         );
     }
 
 
     @And("realiza el registro a un nuevo usuario")
     public void realizaElRegistroUnNuevoUsuario()  {
-        withCurrentActor();
-        theActorInTheSpotlight().attemptsTo(
+        givenThat(Actores.JUAN).attemptsTo(
                 Click.on(LINK_REGISTRO),
                 Registrar.unUsuarioNuevo()
         );
@@ -63,7 +57,7 @@ public class CuentasBancoStepDefinition {
 
     @When("abre una cuenta de {word}")
     public void abreUnaCuenta(String tipoCuenta) {
-        theActorInTheSpotlight().attemptsTo(
+        givenThat(Actores.PEDRO).attemptsTo(
                 CrearNuevaCuenta.deAhorros(tipoCuenta),
                 Click.on(LINK_DETALLES_NUEVA_CUENTA)
         );
@@ -71,7 +65,7 @@ public class CuentasBancoStepDefinition {
 
     @Then("el deberia de ver su cuenta creada de manera exitosa")
     public void elDeberiaDeVerSuCuentaCreadaDeManeraExitosa() {
-        theActorInTheSpotlight().should(seeThat(
+        givenThat(Actores.PEDRO).should(seeThat(
                         CuentaAhorros.haSidoAbiertaExitosamente()
                 ).orComplainWith(CuentaAhorrosCreadaNoExiste.class, MENSAJE_ERROR_CREACION_CUENTA_AHORROS)
         );
