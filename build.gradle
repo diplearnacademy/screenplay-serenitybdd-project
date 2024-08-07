@@ -1,3 +1,8 @@
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.parser.Parser
+
 buildscript {
     repositories {
         mavenLocal()
@@ -27,25 +32,30 @@ ext {
 }
 
 dependencies {
-    //SERENITY
-    testImplementation  "net.serenity-bdd:serenity-core:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
-    //SCREENPLAY
-    testImplementation  "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
-    testImplementation  "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
-    //JUNIT
+    // SERENITY
+    testImplementation "net.serenity-bdd:serenity-core:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-junit5:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-cucumber:${serenityCoreVersion}"
+    // SCREENPLAY
+    testImplementation "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
+    testImplementation "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
+    // JUNIT
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'junit:junit:4.13.2'
-    //ASSERT
+    // ASSERT
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-    //ADICIONAL
+    // ADICIONAL
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
-    testImplementation('org.slf4j:slf4j-simple:2.0.7')
+    testImplementation 'org.slf4j:slf4j-simple:2.0.7'
+    // PDF
+    implementation 'com.openhtmltopdf:openhtmltopdf-core:1.0.10'
+    implementation 'com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.10'
+    implementation 'org.jsoup:jsoup:1.18.1'
+
 }
 
 test {
@@ -59,3 +69,36 @@ serenity {
 test.finalizedBy(aggregate)
 
 gradle.startParameter.continueOnFailure = true
+
+tasks.register('generateReportPdf') {
+    doLast {
+        def htmlFilePath = 'target/site/serenity/serenity-summary.html'
+        def pdfFilePath = 'target/site/serenity/serenity-summary.pdf'
+
+        def htmlFile = new File(htmlFilePath)
+        if (!htmlFile.exists()) {
+            throw new GradleException("El reporte HTML no existe: $htmlFilePath")
+        }
+
+        String cleanedHtml
+        try {
+            Document doc = Jsoup.parse(htmlFile, "UTF-8", "", Parser.xmlParser())
+            cleanedHtml = doc.html()
+        } catch (Exception e) {
+            throw new GradleException("Error limpiando el archivo HTML: " + e.message, e)
+        }
+
+        def pdfFile = new File(pdfFilePath)
+        pdfFile.parentFile.mkdirs()
+
+        try {
+            PdfRendererBuilder builder = new PdfRendererBuilder()
+            builder.withHtmlContent(cleanedHtml, htmlFile.parentFile.toURI().toString())
+                    .toStream(new FileOutputStream(pdfFile))
+                    .run()
+            println "Reporte Serenity en PDF Generado Exitosamente: $pdfFilePath"
+        } catch (Exception e) {
+            throw new GradleException("Error generando PDF: " + e.message, e)
+        }
+    }
+}
