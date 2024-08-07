@@ -1,8 +1,5 @@
 package co.dlacademy.stepdefinitions;
 
-import co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste;
-import co.dlacademy.models.UsuarioNuevo;
-import co.dlacademy.models.builders.UsuarioNuevoBuilder;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
 import co.dlacademy.tasks.Registrar;
@@ -12,14 +9,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.screenplay.actions.Click;
 
-import static co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste.MENSAJE_ERROR_CREACION_CUENTA_AHORROS;
 import static co.dlacademy.models.builders.UsuarioNuevoBuilder.delBanco;
 import static co.dlacademy.userinterfaces.DetallesPerfilPage.LINK_DETALLES_NUEVA_CUENTA;
 import static co.dlacademy.userinterfaces.HomePage.LINK_REGISTRO;
 import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
 import static net.serenitybdd.screenplay.GivenWhenThen.seeThat;
-import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
-import static net.serenitybdd.screenplay.actors.OnStage.withCurrentActor;
 
 public class CuentasBancoStepDefinition {
 
@@ -67,7 +61,7 @@ public class CuentasBancoStepDefinition {
     public void elDeberiaDeVerSuCuentaCreadaDeManeraExitosa() {
         givenThat(Actores.PEDRO).should(seeThat(
                         CuentaAhorros.haSidoAbiertaExitosamente()
-                ).orComplainWith(CuentaAhorrosCreadaNoExiste.class, MENSAJE_ERROR_CREACION_CUENTA_AHORROS)
+                )
         );
     }
 }
