@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-single-page-report:4.1.14"
+    }
+}
+
 plugins {
     id "java"
     id "idea"
@@ -27,10 +36,7 @@ dependencies {
     testImplementation  "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}"
     testImplementation  "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}"
     //JUNIT
-    //testImplementation  "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
-    //testImplementation  "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine:${junitVersion}")
-    //testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation 'junit:junit:4.13.2'
     //ASSERT
@@ -44,6 +50,10 @@ dependencies {
 
 test {
     systemProperties System.getProperties()
+}
+
+serenity {
+    reports = ["single-page-html"]
 }
 
 test.finalizedBy(aggregate)
