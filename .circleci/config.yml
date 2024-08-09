@@ -7,24 +7,61 @@ executors:
     working_directory: ~/repo
 
 jobs:
+  config:
+    executor: java-executor
+    steps:
+      - checkout
+      - run:
+          name: Instalar Herramientas
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y wget unzip openjdk-17-jdk
+      - run:
+          name: Asignar Permisos a Gradlew
+          command: |
+            sudo chmod +x ./gradlew
+      - run:
+          name: Verificar Version de Driver y Navegador
+          command: |
+            google-chrome --version
+            chromedriver --version
+
+  build:
+    executor: java-executor
+    steps:
+      - checkout
+      - run:
+          name: Asignar Permisos a Gradlew
+          command: |
+              sudo chmod +x ./gradlew
+      - run:
+          name: Construir y Limpiar Proyecto
+          command: |
+            ./gradlew clean build -x test
+
   test:
     executor: java-executor
     steps:
       - checkout
       - run:
-          name: Instalar Java y Gradle
+          name: Asignar Permisos a Gradlew
           command: |
-            sudo apt-get update
-            sudo apt-get install -y wget unzip openjdk-17-jdk
-            wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip
-            unzip gradle-7.4.2-bin.zip
-            export PATH=$PATH:~/repo/gradle-7.4.2/bin
             sudo chmod +x ./gradlew
       - run:
           name: Ejecutar las Pruebas E22
           command: ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver -Ddriver=chrome -Denvironment=qa aggregate --info --stacktrace
+      - store_test_results:
+          path: target/site/serenity
+      - store_artifacts
+    path: target/site/serenity
 
 workflows:
   test-e2e:
     jobs:
-      - test
+      - config
+      - build:
+          requires:
+            - config
+      - test:
+          requires:
+            - build
