@@ -52,8 +52,12 @@ jobs:
           command: ./gradlew clean test -Dwebdriver.chrome.driver=/usr/bin/chromedriver -Ddriver=chrome -Denvironment=qa aggregate --info --stacktrace
       - store_test_results:
           path: target/site/serenity
+          when: always
+          paths:
+            - "*.xml"
       - store_artifacts:
           path: target/site/serenity
+          when: always
 
 workflows:
   test-e2e:
