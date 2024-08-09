@@ -1,42 +1,29 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:java:.,tool:gradle:
 version: 2.1
-jobs:
-  test-java:
+
+executors:
+  java-executor:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: selenium/standalone-chrome:latest
+    working_directory: ~/repo
+
+jobs:
+  test:
+    executor: java-executor
     steps:
       - checkout
       - run:
-          name: Calculate cache key
-          command: |-
-            find . -name 'pom.xml' -o -name 'gradlew*' -o -name '*.gradle*' | \
-                    sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
-      - restore_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+          name: Instalar Java y Gradle
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y wget unzip openjdk-17-jdk
+            wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip
+            unzip gradle-7.4.2-bin.zip
+            export PATH=$PATH:~/repo/gradle-7.4.2/bin
       - run:
-          command: sudo ./gradlew check
-      - store_test_results:
-          path: build/test-results
-      - save_cache:
-          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-          paths:
-            - ~/.gradle/caches
-      - store_artifacts:
-          path: build/reports
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Ejecutar las Pruebas E22
+          command: gradle clean test aggregate
+
 workflows:
-  build-and-test:
+  test-e2e:
     jobs:
-      - test-java
-    # - deploy:
-    #     requires:
-    #       - test-java
+      - test
