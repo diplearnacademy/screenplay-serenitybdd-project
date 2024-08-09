@@ -1,6 +1,6 @@
 package co.dlacademy.interactions;
 
-import co.dlacademy.userinterfaces.HomePage;
+import co.dlacademy.userinterfaces.LoginPage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Interaction;
 import net.serenitybdd.screenplay.Performable;
@@ -12,7 +12,7 @@ import static net.serenitybdd.screenplay.Tasks.instrumented;
 public class Abrir implements Interaction {
 
     @Page
-    HomePage homePage;
+    LoginPage homePage;
 
     @Override
     public <T extends Actor> void performAs(T actor) {

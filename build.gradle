@@ -42,7 +42,6 @@ dependencies {
     //ASSERT
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation "org.assertj:assertj-core:${assertJVersion}"
-    testImplementation 'com.github.javafaker:javafaker:1.0.2'
     //ADICIONAL
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
     testImplementation('org.slf4j:slf4j-simple:2.0.7')

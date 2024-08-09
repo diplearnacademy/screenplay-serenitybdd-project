@@ -6,9 +6,9 @@ import org.junit.runner.RunWith;
 
 @RunWith(CucumberSerenityRunner.class)
 @CucumberOptions(
-        features = "src/test/resources/features/cheques/cuentas_cheques_banco.feature",
+        features = "src/test/resources/features/login_saucedemo.feature",
         glue = "co.dlacademy.stepdefinitions",
         snippets = CucumberOptions.SnippetType.CAMELCASE
 )
-public class CuentasChequesBancoRunner {
+public class LoginSaucedemoRunner {
 }
