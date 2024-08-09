@@ -19,9 +19,10 @@ jobs:
             wget https://services.gradle.org/distributions/gradle-7.4.2-bin.zip
             unzip gradle-7.4.2-bin.zip
             export PATH=$PATH:~/repo/gradle-7.4.2/bin
+            sudo chmod +x ./gradlew
       - run:
           name: Ejecutar las Pruebas E22
-          command: gradle clean test aggregate
+          command: ./gradlew clean test aggregate
 
 workflows:
   test-e2e:
