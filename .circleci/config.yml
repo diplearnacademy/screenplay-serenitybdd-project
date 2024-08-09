@@ -22,7 +22,8 @@ jobs:
             sudo chmod +x ./gradlew
       - run:
           name: Ejecutar las Pruebas E22
-          command: ./gradlew clean test aggregate --info --stacktrace
+          command: ./gradlew clean test -Ddriver=chrome -Denvironment=qa aggregate --info --stacktrace
+
 
 workflows:
   test-e2e:
