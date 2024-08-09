@@ -22,7 +22,7 @@ jobs:
             sudo chmod +x ./gradlew
       - run:
           name: Ejecutar las Pruebas E22
-          command: ./gradlew clean test aggregate
+          command: ./gradlew clean test aggregate --info --stacktrace
 
 workflows:
   test-e2e:
