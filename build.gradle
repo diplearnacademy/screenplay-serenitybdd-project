@@ -46,6 +46,12 @@ dependencies {
     //ADICIONAL
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
     testImplementation('org.slf4j:slf4j-simple:2.0.7')
+    //LOMBOK
+    testImplementation 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.34'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.34'
 }
 
 test {

@@ -3,6 +3,7 @@ package co.dlacademy.stepdefinitions;
 import co.dlacademy.exceptions.CuentaAhorrosCreadaNoExiste;
 import co.dlacademy.models.UsuarioNuevo;
 import co.dlacademy.models.builders.UsuarioNuevoBuilder;
+import co.dlacademy.models.lombok.UserReg;
 import co.dlacademy.questions.CuentaAhorros;
 import co.dlacademy.tasks.CrearNuevaCuenta;
 import co.dlacademy.tasks.Registrar;
@@ -32,7 +33,7 @@ public class CuentasBancoStepDefinition {
     }
 
 
-    @And("realiza el registro para un nuevo usuario")
+/*    @And("realiza el registro para un nuevo usuario")
     public void realizaElRegistroParaNuevoUsuario()  {
         withCurrentActor();
         theActorInTheSpotlight().attemptsTo(
@@ -45,6 +46,33 @@ public class CuentasBancoStepDefinition {
                                 .yNicknameDefinidos()
                                 .build())
                // Registrar.unUsuarioNuevo(delBanco().conNombre(credenciales).conNick(credenciales).build()),
+                //Registrar.unUsuarioNuevo(delBanco().conNick(credenciales).build())
+
+        );
+    }*/
+
+
+    @And("realiza el registro para un nuevo usuario")
+    public void realizaElRegistroParaNuevoUsuarioLombok()  {
+        withCurrentActor();
+        UserReg data = UserReg.builder()
+                .nombre("Pedro")
+                .apellido("Acosta")
+                .direccion("CLL 77 SUR")
+                .ciudad("Sabaneta")
+                .estado("Antioquia")
+                .codigoPostal("050505")
+                .telefono("3223223232")
+                .ssn("ABC")
+                .username("pedroacosta")
+                .clave("123456")
+                .claveConfirmacion("123456")
+                .build();
+
+        theActorInTheSpotlight().attemptsTo(
+                Click.on(LINK_REGISTRO),
+                Registrar.unUsuarioLombok(data)
+                // Registrar.unUsuarioNuevo(delBanco().conNombre(credenciales).conNick(credenciales).build()),
                 //Registrar.unUsuarioNuevo(delBanco().conNick(credenciales).build())
 
         );
