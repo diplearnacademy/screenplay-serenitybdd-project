@@ -1,4 +1,4 @@
-Feature: Login en Sauncedemo
+Feature: Login en Sauncedemo Pagina web
   yo como usuario de Saucedemo
   Quiero autenticarme
   para ver los productos de la pagina
