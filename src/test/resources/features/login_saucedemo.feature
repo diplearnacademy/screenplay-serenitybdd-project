@@ -6,6 +6,10 @@ Feature: Login en Sauncedemo
   Background: Abrir Saucedemo
     Given que Juan se encuentra en la pagina
 
-  Scenario: Autenticacion exitosa
+  Scenario: Autenticacion exitosa con primer usuario
+    When el ingresa sus credenciales
+    Then el usuario deberia ingresar a la pagina Products
+
+  Scenario: Autenticacion exitosa con segundo usuario
     When el ingresa sus credenciales
     Then el usuario deberia ingresar a la pagina Products
